@@ -1,17 +1,24 @@
 const fs = require("fs");
 
-function borrarCarpeta() {
-  if (fs.existsSync("carpetaAntigua")) {
-    fs.rmdir("carpetaAntigua", (error) => {
-      if (error) {
-        console.error("Error al borrar la carpeta");
-        return;
-      }
-      console.log("Carpeta borrada correctamente");
-    });
-  } else {
-    console.log("La carpeta carpetaAntigua no existe");
-  }
+function leerArchivoPorBloques() {
+  const archivo = "largeData.txt";
+  const stream = fs.createReadStream(archivo, {
+    encoding: "utf8",
+    highWaterMark: 1024,
+  }); // Leer en bloques de 1KB
+
+  stream.on("data", (bloque) => {
+    console.log("--- Bloque leido ---");
+    console.log(bloque);
+  });
+
+  stream.on("end", () => {
+    console.log("--- Lectura completada ---");
+  });
+
+  stream.on("error", (err) => {
+    console.error("Error al leer el archivo:", err);
+  });
 }
 
-borrarCarpeta();
+leerArchivoPorBloques();
