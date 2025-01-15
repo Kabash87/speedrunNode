@@ -1,17 +1,17 @@
 const fs = require("fs");
 
-function eliminarArchivo() {
-  if (fs.existsSync("temp.txt")) {
-    fs.unlink("temp.txt", (err) => {
-      if (err) {
-        console.error("Error al eliminar el archivo:", err);
+function crearCarpeta() {
+  if (fs.existsSync("nuevaCarpeta")) {
+    console.log("La carpeta ya existe");
+  } else {
+    fs.mkdir("nuevaCarpeta", (error) => {
+      if (error) {
+        console.error("Error al crear la carpeta");
         return;
       }
-      console.log("Archivo eliminado correctamente");
+      console.log("Carpeta creada correctamente");
     });
-  } else {
-    console.log("El archivo temp.txt no existe");
   }
 }
 
-eliminarArchivo();
+crearCarpeta();
