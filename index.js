@@ -1,19 +1,28 @@
 const fs = require("fs");
 
-function copiarTexto() {
-  fs.readFile("source.txt", "utf-8", (error, datos) => {
-    if (error) {
-      console.error("Error leyendo source.txt");
-      return;
-    }
-    fs.writeFile("destination.txt", datos, (error) => {
-      if (error) {
-        console.error("Error escribiendo destination.txt");
-        return;
-      }
-      console.log("Datos en destination.txt escritos correctamente");
-    });
+function copiarConPipe() {
+  const archivoEntrada = "entrada.txt";
+  const archivoSalida = "salida.txt";
+
+  const readStream = fs.createReadStream(archivoEntrada, { encoding: "utf8" });
+  const writeStream = fs.createWriteStream(archivoSalida);
+
+  // Conectar los streams con pipe
+  readStream.pipe(writeStream);
+
+  readStream.on("error", (err) => {
+    console.error("Error al leer el archivo:", err);
+  });
+
+  writeStream.on("error", (err) => {
+    console.error("Error al escribir en el archivo:", err);
+  });
+
+  writeStream.on("finish", () => {
+    console.log(
+      `Contenido copiado exitosamente de ${archivoEntrada} a ${archivoSalida}`
+    );
   });
 }
 
-copiarTexto();
+copiarConPipe();
