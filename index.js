@@ -1,17 +1,17 @@
 const fs = require("fs");
 
-function crearCarpeta() {
-  if (fs.existsSync("nuevaCarpeta")) {
-    console.log("La carpeta ya existe");
-  } else {
-    fs.mkdir("nuevaCarpeta", (error) => {
+function borrarCarpeta() {
+  if (fs.existsSync("carpetaAntigua")) {
+    fs.rmdir("carpetaAntigua", (error) => {
       if (error) {
-        console.error("Error al crear la carpeta");
+        console.error("Error al borrar la carpeta");
         return;
       }
-      console.log("Carpeta creada correctamente");
+      console.log("Carpeta borrada correctamente");
     });
+  } else {
+    console.log("La carpeta carpetaAntigua no existe");
   }
 }
 
-crearCarpeta();
+borrarCarpeta();
