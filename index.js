@@ -1,16 +1,15 @@
 const fs = require("fs");
 
-function escribirArchivo() {
-  const archivo = "output.txt";
-  const contenido = "Hola, soy un archivo de texto";
+function sobreEscribirArchivo() {
+  const archivo = "log.txt";
+  const contenido = "Actualización completada";
 
   fs.writeFile(archivo, contenido, (err) => {
     if (err) {
       console.error("Error al escribir el archivo:", err);
       return;
     }
-    console.log("Archivo escrito correctamente");
+    console.log("Archivo sobreescrito correctamente");
   });
 }
-
-escribirArchivo();
+sobreEscribirArchivo();
