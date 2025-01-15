@@ -1,16 +1,16 @@
 const fs = require("fs");
 
-function leerArchivo() {
-  const archivo = "data.txt";
+function escribirArchivo() {
+  const archivo = "output.txt";
+  const contenido = "Hola, soy un archivo de texto";
 
-  fs.readFile(archivo, "utf8", (err, data) => {
+  fs.writeFile(archivo, contenido, (err) => {
     if (err) {
-      console.error("Error al leer el archivo:", err);
+      console.error("Error al escribir el archivo:", err);
       return;
     }
-    console.log("Contenido del archivo:");
-    console.log(data);
+    console.log("Archivo escrito correctamente");
   });
 }
 
-leerArchivo();
+escribirArchivo();
